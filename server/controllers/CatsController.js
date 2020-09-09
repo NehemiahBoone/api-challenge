@@ -1,10 +1,10 @@
-import express from "express";
-import BaseController from "../utils/BaseController";
-import { catsService } from "../services/CatsService";
+import express from "express"
+import BaseController from "../utils/BaseController"
+import { catsService } from "../services/CatsService"
 
 export class CatsController extends BaseController {
   constructor() {
-    super("api/cats");
+    super("api/cats")
     this.router
       .get("", this.getAll)
       .get("/:id", this.getById)
@@ -15,7 +15,7 @@ export class CatsController extends BaseController {
 
   async getAll(req, res, next) {
     try {
-      let data = await catsService.getAll(req.query)
+      let data = await catsService.find(req.query)
       res.send(data)
     } catch (error) {
       next(error);
@@ -24,7 +24,7 @@ export class CatsController extends BaseController {
 
   async getById(req, res, next) {
     try {
-      let data = await catsService.getById(req.params.id)
+      let data = await catsService.findById(req.params.id)
       res.send(data)
     } catch (error) {
       next(error)

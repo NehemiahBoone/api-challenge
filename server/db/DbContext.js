@@ -1,8 +1,8 @@
-import CatSchema from "../models/Cat";
-import mongoose from "mongoose";
+import CatSchema from "../models/Cat"
+import mongoose from "mongoose"
 
 class DbContext {
-  Cats = mongoose.model("Cat", CatSchema);
+  Cats = mongoose.model("Cat", CatSchema)
 }
 
-export const dbContext = new DbContext();
+export const dbContext = new DbContext()
