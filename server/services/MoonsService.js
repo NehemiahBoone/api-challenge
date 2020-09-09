@@ -3,13 +3,12 @@ import { BadRequest } from "../utils/Errors"
 
 class MoonsService {
   async find(query) {
-    let moons = await dbContext.Moons.find(query)
+    let moons = await dbContext.Moons.find(query).populate("planet")
     return moons
   }
 
   async findById(id) {
-    let moon = await (await dbContext.Moons.findById(id))
-      .populate("planet")
+    let moon = await dbContext.Moons.findById(id).populate("planet")
     if (!moon) {
       throw new BadRequest("Invalid id")
     }
