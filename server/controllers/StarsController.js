@@ -55,7 +55,7 @@ export class StarsController extends BaseController {
       await starsService.delete(req.params.id)
       res.send("Successfully deleted")
     } catch (error) {
-
+      next(error)
     }
   }
 }
