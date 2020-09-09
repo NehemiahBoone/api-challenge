@@ -8,7 +8,7 @@ class PlanetsService {
   }
 
   async findById(id) {
-    let planets = await (await dbContext.Planets.findById(id)).populate("galaxy")
+    let planets = await (await dbContext.Planets.findById(id)).populate("star")
     if (!planets) {
       throw new BadRequest("Invalid id")
     }
