@@ -1,26 +1,27 @@
 import { dbContext } from "../db/DbContext"
 import { BadRequest } from "../utils/Errors"
 
-class PlanetsService {
+class MoonsService {
   async find(query) {
-    let planets = await dbContext.Planets.find(query)
-    return planets
+    let moons = await dbContext.Moons.find(query)
+    return moons
   }
 
   async findById(id) {
-    let planet = await (await dbContext.Planets.findById(id))
-    if (!planet) {
+    let moon = await (await dbContext.Moons.findById(id))
+      .populate("planet")
+    if (!moon) {
       throw new BadRequest("Invalid id")
     }
-    return planet
+    return moon
   }
 
   async create(body) {
-    return await dbContext.Planets.create(body)
+    return await dbContext.Moons.create(body)
   }
 
   async edit(body) {
-    let update = await dbContext.Planets.findOneAndUpdate({ _id: body.id }, body, { new: true })
+    let update = await dbContext.Moons.findOneAndUpdate({ _id: body.id }, body, { new: true })
     if (!update) {
       throw new BadRequest("Invalid id")
     }
@@ -28,11 +29,11 @@ class PlanetsService {
   }
 
   async delete(id) {
-    let success = await dbContext.Planets.findByIdAndDelete(id)
+    let success = await dbContext.Moons.findByIdAndDelete(id)
     if (!success) {
       throw new BadRequest("Invalid id")
     }
   }
 }
 
-export const planetsService = new PlanetsService()
+export const moonsService = new MoonsService()

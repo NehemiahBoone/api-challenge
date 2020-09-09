@@ -1,10 +1,10 @@
 import express from "express"
 import BaseController from "../utils/BaseController"
-import { planetsService } from "../services/PlanetsService"
+import { moonsService } from "../services/MoonsService"
 
-export class PlanetsController extends BaseController {
+export class MoonsController extends BaseController {
   constructor() {
-    super("api/planets")
+    super("api/moons")
     this.router
       .get("", this.getAll)
       .get("/:id", this.getById)
@@ -15,7 +15,7 @@ export class PlanetsController extends BaseController {
 
   async getAll(req, res, next) {
     try {
-      let data = await planetsService.find(req.query)
+      let data = await moonsService.find(req.query)
       res.send(data)
     } catch (error) {
       next(error)
@@ -24,7 +24,7 @@ export class PlanetsController extends BaseController {
 
   async getById(req, res, next) {
     try {
-      let data = await planetsService.findById(req.params.id)
+      let data = await moonsService.findById(req.params.id)
       res.send(data)
     } catch (error) {
       next(error)
@@ -33,7 +33,7 @@ export class PlanetsController extends BaseController {
 
   async create(req, res, next) {
     try {
-      let data = await planetsService.create(req.body)
+      let data = await moonsService.create(req.body)
       res.send(data)
     } catch (error) {
       next(error)
@@ -43,7 +43,7 @@ export class PlanetsController extends BaseController {
   async edit(req, res, next) {
     try {
       req.body.id = req.params.id
-      let data = await planetsService.edit(req.body)
+      let data = await moonsService.edit(req.body)
       res.send(data)
     } catch (error) {
       next(error)
@@ -52,7 +52,7 @@ export class PlanetsController extends BaseController {
 
   async delete(req, res, next) {
     try {
-      await planetsService.delete(req.params.id)
+      await moonsService.delete(req.params.id)
       res.send("Successfully deleted")
     } catch (error) {
       next(error)
