@@ -1,6 +1,7 @@
 import express from "express"
 import BaseController from "../utils/BaseController"
 import { planetsService } from "../services/PlanetsService"
+import { moonsService } from "../services/MoonsService"
 
 export class PlanetsController extends BaseController {
   constructor() {
@@ -8,6 +9,7 @@ export class PlanetsController extends BaseController {
     this.router
       .get("", this.getAll)
       .get("/:id", this.getById)
+      .get("/:id/moons", this.getMoonsByPlanetId)
       .post("", this.create)
       .put("/:id", this.edit)
       .delete("/:id", this.delete)
@@ -25,6 +27,15 @@ export class PlanetsController extends BaseController {
   async getById(req, res, next) {
     try {
       let data = await planetsService.findById(req.params.id)
+      res.send(data)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getMoonsByPlanetId(req, res, next) {
+    try {
+      let data = await moonsService.find({ planet: req.params.id })
       res.send(data)
     } catch (error) {
       next(error)
