@@ -3,7 +3,8 @@ import { BadRequest } from "../utils/Errors"
 
 class GalaxysService {
   async find(query) {
-
+    let galaxies = await dbContext.Galaxys.find(query)
+    return galaxies
   }
 
   async findById(id) {
